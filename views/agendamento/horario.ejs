@@ -1,0 +1,14 @@
+<%- include("../partials/header") %>
+<% for(let i=7; i < 18; i++){ %>
+    <div class="overflow-auto flex-grow w-full">
+        <div class="w-full bg-gray-100 px-8 py-5 flex items-center border-b border-gray-300">
+            <div class="w-full ml-4">
+                <div class="flex justify-between pl-4">
+                    <span class="font-medium xl:text-xl">Horário <%- i %>:00</span> 
+                    <button class="py-2 w-32 xl:w-64 text-sm xl:text-xl text-white bg-green-500 rounded-2xl font-medium hover:bg-green-400">Agendar</button>                             
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>
+<%- include("../partials/footer") %>

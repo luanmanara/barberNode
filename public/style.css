@@ -1,0 +1,133 @@
+/* .calendar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+} */
+
+/* .month {
+    text-align: center;
+    padding-bottom: 2rem;
+    background-color: #2c3e50;
+}
+
+.month h1 {
+    color: white;
+    padding-top: 1rem;
+} */
+
+/* .days {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    height: 100%;
+    flex-wrap: wrap;
+    align-content: space-around;
+} */
+
+/* .day{
+    display: flex;
+    flex-direction: column;
+    width: calc(100% / 7);
+    height: 100%;
+} */
+
+/* .day_title {
+    text-align: center;
+    height: 15%;
+    background-color: #34495e;
+    border-radius: 0;
+} */
+
+/* .day_title > h2 {
+    margin: 1rem 0 0 0;
+    color: white;
+} */
+
+/* .day_nm{
+    height: 85%;
+    width: 100%;
+} */
+
+.day_nm > .card{
+    /* margin-top: 2px; */
+    /* text-align: center; */
+    /* background-color: #e74c3c; */
+    /* color: white; */
+    border-radius: 0;
+    position: relative;
+    width: 100%;
+    height: calc(100% / 6);
+    cursor: pointer;
+}
+
+.day_nm > .card > .modal{
+    text-align: initial;
+}
+
+.day_nm > .card span{
+    font-size: 1rem;
+    font-weight: bold;
+    position: absolute;
+    top: 2px;
+    right: 5px;
+}
+
+@media only screen and (max-width: 1023px) {
+    .section {
+        padding: 0;
+    }
+
+    /* .month {
+        margin-top: 15%;
+    } */
+
+    .month h1 {
+        font-size: 1.25rem !important;
+    }
+
+    .day_title > h2 {
+        font-size: 0.7rem !important;
+    }
+
+    .day_title {
+        height: 15%;
+    }
+
+    .day_nm{
+        height: 65%;
+        width: 100%;
+    } 
+
+    .day_nm > .card span{
+        font-size: 0.85rem;
+    }
+
+    /* body{
+        height: 100%;
+    }
+    .days {
+        display: block;
+    }
+
+    .day{
+        height: 100%;
+        width: 100%;
+        margin-bottom: 5%;
+    }
+
+    .day_title {
+        text-align: center;
+        height: 40px;
+    }
+
+    .day_nm > .card{
+        margin-top: 0;
+        height: 35px;
+        position: relative;
+    }
+
+    .day_nm > .card span{
+        font-size: 1.1rem;
+        position: unset;
+    } */
+}

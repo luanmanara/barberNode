@@ -1,0 +1,32 @@
+<%- include("../partials/header") %>
+    <div class="min-h-screen flex justify-center items-center bg-center bg-no-repeat bg-cover" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/bg_home.jfif');">
+        <div class="md:w-1/3 py-12 px-12 bg-white rounded-2xl shadow-xl z-20">
+            <div>
+                <h1 class="text-3xl font-bold text-center mb-4">Saloon Agenda</h1>
+            </div>
+            <form action="/clientes" method="POST" class="w-full">
+                <div class="space-y-2">
+                    <label for="" class="block text-md w-full font-bold">Email</label>
+                    <input type="email" placeholder="email@email.com" class="block text-md py-3 px-4 rounded-lg w-full border outline-none"
+                        name="cliente[email]" required>
+                </div>
+                <div class="space-y-2">
+                    <label for="" class="block text-md w-full font-bold">Nome</label>
+                    <input type="text" placeholder="Digite seu nome completo" class="block text-md py-3 px-4 rounded-lg w-full border outline-none"
+                        name="cliente[nome]" required>
+                </div>
+                <div class="space-y-2">
+                    <label for="" class="block text-md w-full font-bold">Celular</label>
+                    <input type="text" pattern="\(\d{2}\)\s*\d{5}-\d{4}" maxlength="15"
+                        placeholder="(xx) xxxxx-xxxx" class="block text-md py-3 px-4 rounded-lg w-full border outline-none" id="clienteTelefone"
+                        name="cliente[telefone]" required>
+                </div>
+                <div class="space-y-2 text-center py-5">
+                    <button class="py-3 w-64 text-xl text-white bg-green-400 rounded-2xl">
+                        Continuar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+<%- include("../partials/footer") %>
