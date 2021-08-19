@@ -40,33 +40,50 @@
         res.redirect('agendamentos/' + currentDate);
     });  
     
-    app.get('/horarios', (req, res) => {
-        res.render('agendamento/horario');
+    app.get('/horarios/:dia', async (req, res) => {
+        const dia = Number(req.params.dia);
+        const dataDia = new Date(dia);
+
+        let horarios = await Horario.findAll({
+            where: {
+                dia: dataDia.getDay()
+            }
+        });
+
+        
+        horarios = horarios.length === 0 ? false : horarios;
+        console.log(horarios);
+        res.render('agendamento/horario', {
+            horarios: horarios
+        });
     });
 
     /* Aqui comeca as rotas de agendamento */
 
-    app.get('/agendamentos/:d', async (req, res) => {
-        const pd = Number(req.params.d);
-        const currentDate = new Date(pd);
-        const d = new Date(pd);
-        const firstDay = new Date(d.setDate((d.getDate() - d.getDate()) + 1));
-        firstDay.setDate(firstDay.getDate() - firstDay.getDay());
+    app.get('/agendamentos/:dia', async (req, res) => {
+        const dia = Number(req.params.dia);
+        const dataAtual = new Date(dia);
+        dataAtual.setHours(0,0,0,0);
+        const d = new Date(dia);
+        const primeiroDia = new Date(d.setDate((d.getDate() - d.getDate()) + 1));
+        primeiroDia.setDate(primeiroDia.getDate() - primeiroDia.getDay());
 
-        const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
-        const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        const dias = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
+        const nomeMeses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
-        const monthYear = monthNames[currentDate.getMonth()] + " " + currentDate.getFullYear();
+        const mesAno = nomeMeses[dataAtual.getMonth()] + " " + dataAtual.getFullYear();
 
         const adicionaDia = (data, y) => {
             let x = new Date(data);
-            return new Date(x.setDate(x.getDate() + y))
+            x.setHours(0,0,0,0);
+            return new Date(x.setDate(x.getDate() + y));
         }
 
         const multiplicaDia = (data, y) => {
             let x = new Date(data);
+            x.setHours(0,0,0,0);
             if (y == 0) {
-                return new Date(x.setDate(x.getDate() + 6 * y))
+                return new Date(x.setDate(x.getDate() + 6 * y));
             } else {
                 return new Date(x.setDate((x.getDate() + 6 * y) + y));
             }
@@ -83,11 +100,10 @@
         }
 
         res.render('agendamento', {
-            days: days,
-            monthNames: monthNames,
-            currentDate: currentDate,
-            monthYear: monthYear,
-            firstDay: firstDay,
+            dias: dias,
+            dataAtual: dataAtual,
+            mesAno: mesAno,
+            primeiroDia: primeiroDia,
             adicionaDia: adicionaDia,
             multiplicaDia: multiplicaDia,
             adicionaMes: adicionaMes,
