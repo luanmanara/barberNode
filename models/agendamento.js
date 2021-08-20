@@ -29,7 +29,14 @@ const Agendamento = database.define('agendamento', {
             key: 'id'
         }
     },
-    horario: {
+    horarioId: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'horarios',
+            key: 'id'
+        }
+    },
+    dia :{
         type: Sequelize.DATE,
         allowNull: false
     }

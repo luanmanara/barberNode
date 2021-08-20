@@ -6,12 +6,17 @@
     const Servico = models.servico;
     const Horario = models.horario;
     await database.sync();
-
+ 
     const express = require('express');
     const path = require('path');
     const _PORT = process.env.PORT || 3000;
 
     const app = express();
+
+    app.use((req, res, next) => {
+        res.locals.cliente = '';
+        next();
+    });
 
     app.set("view engine", "ejs");
     app.set('views', path.join(__dirname, 'views'));
@@ -36,6 +41,7 @@
         }
 
         // res.send(cliente);
+        res.locals.cliente = cliente;
         const currentDate = new Date().getTime();
         res.redirect('agendamentos/' + currentDate);
     });  
@@ -52,7 +58,6 @@
 
         
         horarios = horarios.length === 0 ? false : horarios;
-        console.log(horarios);
         res.render('agendamento/horario', {
             horarios: horarios
         });
@@ -61,6 +66,7 @@
     /* Aqui comeca as rotas de agendamento */
 
     app.get('/agendamentos/:dia', async (req, res) => {
+        console.log(res.locals);
         const dia = Number(req.params.dia);
         const dataAtual = new Date(dia);
         dataAtual.setHours(0,0,0,0);
@@ -68,7 +74,7 @@
         const primeiroDia = new Date(d.setDate((d.getDate() - d.getDate()) + 1));
         primeiroDia.setDate(primeiroDia.getDate() - primeiroDia.getDay());
 
-        const dias = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
+        const dias = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
         const nomeMeses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
         const mesAno = nomeMeses[dataAtual.getMonth()] + " " + dataAtual.getFullYear();
@@ -109,6 +115,10 @@
             adicionaMes: adicionaMes,
             subtraiMes: subtraiMes
         });
+    });
+
+    app.post('/agendamentos/:dia', async (req, res) => {
+
     });
 
     app.listen(_PORT, () => {

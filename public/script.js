@@ -1,5 +1,6 @@
 window.onload = () => {
     const telefoneCliente = document.getElementById('clienteTelefone');
+    const diasEl = document.getElementById('dias');
 
     if (telefoneCliente) {
         telefoneCliente.addEventListener('keypress', (e) => mascaraTelefone(e.target.value));
@@ -12,4 +13,19 @@ window.onload = () => {
             telefoneCliente.value = valor;
         }
     }
+
+    if(diasEl){
+        diasEl.addEventListener('click', (e) => {
+            let dia;
+           if(e.target.parentElement.classList.contains('cursor-pointer') || e.target.classList.contains('cursor-pointer')){
+                if(e.target.nodeName == 'SPAN') {
+                    dia = e.target.id;
+                }else {
+                    dia = e.target.childNodes[1].id;
+                }
+                location.href = '/agendamentos/' + dia;
+            }
+        });
+    }
+
 }
