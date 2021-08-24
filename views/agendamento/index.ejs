@@ -33,11 +33,11 @@
                         <div class="h-80 lg:h-4/5 w-full">
                             <% for(let j=0; j < 6; j++){ %>
                                 <% let y = multiplicaDia(x.toString(), j); %>
-                                <div class="h-1/6 text-xs shadow-sm text-center flex justify-center items-center
+                                <div class="h-1/6 text-xs shadow-sm text-center flex justify-center items-center text-black
                                             <%- dataAtual.getTime() == y.getTime() ? 'bg-yellow-300' : '' %>
                                             <%- new Date().setHours(0,0,0,0) <= y.getTime() ? 'cursor-pointer' : '' %>
-                                            <%- new Date().setHours(0,0,0,0) > y.getTime() ? 'bg-gray-200' : '' %>
-                                            <%- new Date().setHours(0,0,0,0) > y.getTime() ? 'text-gray-50' : '' %>">
+                                            <%- new Date().setHours(0,0,0,0) > y.getTime() ? 'bg-gray-50' : '' %>
+                                            <%- new Date().setHours(0,0,0,0) > y.getTime() ? 'text-gray-400' : '' %>">
                                     <span id='<%- y.getTime() %>' class="block"><%- y.getDate() %></span>
                                 </div>
                             <% } %>

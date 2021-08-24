@@ -13,9 +13,9 @@ Cliente.hasMany(Agendamento);
 Servico.hasMany(Agendamento);
 
 module.exports = {
-    cliente: Cliente,
-    agendamento: Agendamento,
-    servico: Servico,
-    horario: Horario,
-    estabelecimento: Estabelecimento
+    Cliente: Cliente,
+    Agendamento: Agendamento,
+    Servico: Servico,
+    Horario: Horario,
+    Estabelecimento: Estabelecimento
 }
