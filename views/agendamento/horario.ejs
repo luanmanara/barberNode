@@ -4,12 +4,17 @@
         <div class="flex-grow w-full">
             <div class="w-full px-8 py-5 flex items-center border-b">
                 <div class="w-full ml-4">
-                    <div class="flex justify-between items-center pl-4 text-black">
-                        <span class="lg:text-xl">Horário <%- horario.horario %></span> 
-                        <button class="w-8 lg:w-10 text-sm lg:text-xl rounded-md font-medium">
+                    <form action="/agendamentos" method="POST" class="flex justify-between items-center pl-4 text-black">
+                        <div>
+                            <label for="horario">Horário:</label>
+                            <span type="text" class="lg:text-xl" ><%- horario.horario %></span>
+                            <input type="text" name="agendamento[horario]" class="hidden" value='<%- JSON.stringify(horario.toJSON()) %>'> 
+                            <input type="text" name="agendamento[dataDia]" class="hidden" value="<%- dataDia %>"> 
+                        </div>
+                        <button type="submit" class="w-8 lg:w-10 text-sm lg:text-xl rounded-md font-medium">
                             <i class="far fa-calendar-check"></i> 
                         </button>                             
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

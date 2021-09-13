@@ -4,7 +4,8 @@
   "description": "Um jeito mais pratico e simples de organizar o seu negócio",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app",
+    "dev": "nodemon app"
   },
   "author": "Luan Manara",
   "license": "ISC",

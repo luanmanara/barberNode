@@ -9,6 +9,8 @@ Estabelecimento.hasMany(Agendamento);
 Estabelecimento.hasMany(Servico);
 Estabelecimento.hasMany(Horario);
 
+Agendamento.hasMany(Horario, {constraints: false});
+
 Cliente.hasMany(Agendamento);
 Servico.hasMany(Agendamento);
 

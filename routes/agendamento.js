@@ -56,8 +56,22 @@ router.get('/:dia', async (req, res) => {
     });
 });
 
-router.post('/:dia', async (req, res) => {
+router.post('/', async (req, res) => {
+    const {agendamento} = req.body;
+    const horario = JSON.parse(agendamento.horario);
 
+    // MONTA CORPO DO AGENDAMENTO
+    const dadosAgendamento = {
+        estabelecimentoId: horario.estabelecimentoId,
+        clienteId: req.session.cliente.id,
+        horarioId: horario.id,
+        dia: new Date(agendamento.dataDia).toISOString()
+    };
+
+    // CRIA NOVO AGENDAMENTO
+    const novoAgendamento = await Agendamento.create(dadosAgendamento);
+
+    res.redirect('horarios/' + new Date(agendamento.dataDia).getTime());
 });
 
 module.exports = router;

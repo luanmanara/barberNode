@@ -14,7 +14,7 @@ router.post('/', async ( req, res ) => {
         cliente = await Cliente.create(req.body.cliente)
     }
 
-    req.session.cliente = cliente;
+    req.session.cliente = cliente[0];
     const currentDate = new Date().getTime();
     res.redirect('agendamentos/' + currentDate);
 });
