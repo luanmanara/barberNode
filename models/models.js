@@ -7,9 +7,10 @@ const Horario = require('./horario');
 Estabelecimento.hasMany(Cliente);
 Estabelecimento.hasMany(Agendamento);
 Estabelecimento.hasMany(Servico);
-Estabelecimento.hasMany(Horario);
+Estabelecimento.hasMany(Horario, {constraints: false});
 
-Agendamento.hasMany(Horario, {constraints: false});
+Horario.hasOne(Agendamento, {constraints: false});
+Horario.hasOne(Estabelecimento, {constraints: false});
 
 Cliente.hasMany(Agendamento);
 Servico.hasMany(Agendamento);

@@ -15,6 +15,7 @@ router.post('/', async ( req, res ) => {
     }
 
     req.session.cliente = cliente[0];
+    req.session.estabelecimentoId = '1c552480-e436-11eb-ba80-0242ac130004';
     const currentDate = new Date().getTime();
     res.redirect('agendamentos/' + currentDate);
 });

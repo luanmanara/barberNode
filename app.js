@@ -11,7 +11,7 @@
     const path = require('path');
     const _PORT = process.env.PORT || 3000;
     const sessionsOptions = {
-        secret: 'thisisatemposecret',
+        secret: 'thisisatemposecret', 
         resave: false,
         saveUninitialized: false
     };

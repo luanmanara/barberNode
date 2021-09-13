@@ -1,5 +1,5 @@
 const models = require('../models/models');
-const { Horario, Agendamento } = models;
+const { Horario, Agendamento, Estabelecimento } = models;
 const express = require('express');
 const router = express.Router();
 
@@ -10,7 +10,8 @@ router.get('/:dia', async (req, res) => {
     let horarios = await Horario.findAll({
         include: Agendamento,
         where: {
-            dia: dataDia.getDay()
+            dia: dataDia.getDay(),
+            estabelecimentoId: req.session.estabelecimentoId
         }
     });
 
