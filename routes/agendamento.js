@@ -1,14 +1,20 @@
 const models = require('../models/models');
-const { Agendamento } = models;
+const { Agendamento, Horario } = models;
 const express = require('express');
 const router = express.Router();
 
 /* Aqui comeca as rotas de agendamento */
-router.get('/:dia', async (req, res) => {
-    console.log(req.session.cliente);
+router.get('/', async (req, res) => {
+    const currentDate = new Date().getTime();
+    res.render('agendamento', {
+        currentDateTime: currentDate
+    });
+});
+
+router.get('/calendario/:dia', (req, res) => {
     const dia = Number(req.params.dia);
     const dataAtual = new Date(dia);
-    dataAtual.setHours(0,0,0,0);
+    dataAtual.setHours(0, 0, 0, 0);
     const d = new Date(dia);
     const primeiroDia = new Date(d.setDate((d.getDate() - d.getDate()) + 1));
     primeiroDia.setDate(primeiroDia.getDate() - primeiroDia.getDay());
@@ -20,13 +26,13 @@ router.get('/:dia', async (req, res) => {
 
     const adicionaDia = (data, y) => {
         let x = new Date(data);
-        x.setHours(0,0,0,0);
+        x.setHours(0, 0, 0, 0);
         return new Date(x.setDate(x.getDate() + y));
     }
 
     const multiplicaDia = (data, y) => {
         let x = new Date(data);
-        x.setHours(0,0,0,0);
+        x.setHours(0, 0, 0, 0);
         if (y == 0) {
             return new Date(x.setDate(x.getDate() + 6 * y));
         } else {
@@ -44,7 +50,7 @@ router.get('/:dia', async (req, res) => {
         return new Date(x.setMonth(x.getMonth() - 1));
     }
 
-    res.render('agendamento', {
+    res.render('agendamento/calendario', {
         dias: dias,
         dataAtual: dataAtual,
         mesAno: mesAno,
@@ -57,19 +63,22 @@ router.get('/:dia', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const {agendamento} = req.body;
-    const horario = JSON.parse(agendamento.horario);
+    const { agendamento } = req.body;
+    const horarioId = agendamento.horarioId;
+    const horario = await Horario.findOne({ _id: req.session.clienteId }).exec();
 
     // MONTA CORPO DO AGENDAMENTO
     const dadosAgendamento = {
-        estabelecimentoId: horario.estabelecimentoId,
-        clienteId: req.session.cliente.id,
-        horarioId: horario.id,
+        estabelecimento: req.session.estabelecimentoId,
+        cliente: req.session.clienteId,
+        horario: horarioId,
         dia: new Date(agendamento.dataDia).toISOString()
     };
 
     // CRIA NOVO AGENDAMENTO
-    const novoAgendamento = await Agendamento.create(dadosAgendamento);
+    console.log(dadosAgendamento);
+    const novoAgendamento = new Agendamento(dadosAgendamento);
+    novoAgendamento.save();
 
     res.redirect('horarios/' + new Date(agendamento.dataDia).getTime());
 });

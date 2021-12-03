@@ -1,24 +1,16 @@
-const Sequelize = require('sequelize');
 const database = require('../db');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const Servico = database.define('servico', {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    estabelecimentoId: {
-        type: Sequelize.UUID,
-        references: {
-            model: 'estabelecimentos',
-            key: 'id'
+const Servico = mongoose.model(
+    "Servico",
+    new mongoose.Schema({
+        descricao: String,
+        estabelecimento: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Estabelecimento"
         }
-    },
-    descricao: {
-        type: Sequelize.STRING,
-        allowNull: false
-    }
-});
+    })
+);
 
 module.exports = Servico;

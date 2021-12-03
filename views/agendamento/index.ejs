@@ -8,48 +8,9 @@
                   hover:bg-yellow-500 hover:text-white font-medium lg:text-lg transition-all
                   duration-400" href="/">Sair</a>
     </div>
-    <div class="flex flex-col-reverse justify-around h-2/3 lg:flex-row w-11/12 mb-6">
-        <div class="h-2/3 lg:h-auto w-full lg:w-1/3 flex flex-col shadow-lg mr-3 rounded-b-xl divide-y mt-5">
-            <div class="flex justify-around items-center text-center lg:h-1/5 rounded-t-xl bg-white">
-                <% let mesA = subtraiMes(dataAtual.toString()).getTime(); %>
-                <a class="block" href="/agendamentos/<%- mesA %>">
-                    <i class="fas fa-angle-left text-black"></i>
-                </a>
-                <h1 class="text-black text-3xl"> <%- mesAno %></h1>
-                <% let mesP = adicionaMes(dataAtual.toString()).getTime(); %>
-                <a class="block" href="/agendamentos/<%- mesP %>">
-                    <i class="fas fa-angle-right text-black"></i>
-                </a>
-            </div>
-            <div id="dias" class="flex w-full flex-col h-full lg:h-4/5 flex-wrap shadow-lg bg-white rounded-b-xl">
-                <% for(let i=0; i < 7; i++){ %>
-                    <% let x = adicionaDia(primeiroDia.toString(), i); %>
-                    <div class="flex flex-col w-auto h-full">
-                        <div class="flex justify-center items-center text-center h-auto lg:h-1/5 border-r border-gray-100">
-                            <h2 class="text-black">
-                                <%- dias[i] %>
-                            </h2>
-                        </div>
-                        <div class="h-80 lg:h-4/5 w-full">
-                            <% for(let j=0; j < 6; j++){ %>
-                                <% let y = multiplicaDia(x.toString(), j); %>
-                                <div class="h-1/6 text-xs shadow-sm text-center flex justify-center items-center text-black
-                                            <%- dataAtual.getTime() == y.getTime() ? 'bg-yellow-300' : '' %>
-                                            <%- new Date().setHours(0,0,0,0) <= y.getTime() ? 'cursor-pointer' : '' %>
-                                            <%- new Date().setHours(0,0,0,0) > y.getTime() ? 'bg-gray-50' : '' %>
-                                            <%- new Date().setHours(0,0,0,0) > y.getTime() ? 'text-gray-400' : '' %>">
-                                    <span id='<%- y.getTime() %>' class="block"><%- y.getDate() %></span>
-                                </div>
-                            <% } %>
-                        </div>
-                    </div>
-                <% } %>
-            </div>
-        </div>
-        <div class="h-1/3 lg:h-auto w-full lg:w-2/3 shadow-xl bg-white rounded-xl mt-5">
-            <iframe class="w-full h-full overflow-auto" src="/horarios/<%- dataAtual.getTime() %>" frameborder="0">
-            </iframe>
-        </div>
+    <div class="h-2/3 w-11/12 mb-6">
+        <iframe class="w-full h-full overflow-hidden" src="/agendamentos/calendario/<%- currentDateTime %>" frameborder="0">
+        </iframe>
     </div>
 </div>
 <%- include("../partials/footer") %>

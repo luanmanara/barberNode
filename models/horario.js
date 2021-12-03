@@ -1,28 +1,17 @@
-const Sequelize = require('sequelize');
 const database = require('../db');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const Horario = database.define('horario', {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    estabelecimentoId: {
-        type: Sequelize.UUID,
-        references: {
-            model: 'estabelecimentos',
-            key: 'id'
+const Horario = mongoose.model(
+    "Horario",
+    new mongoose.Schema({
+        dia: Number,
+        horario: String,
+        estabelecimento: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Estabelecimento"
         }
-    },
-    dia: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    horario: {
-        type: Sequelize.STRING,
-        allowNull: false
-    }
-});
+    })
+);
 
 module.exports = Horario;

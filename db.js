@@ -1,9 +1,3 @@
-const Sequelize = require('sequelize');
+const db = require('monk')('localhost/barberNode');
 
-const sequelize = new Sequelize('barbernode', 'root', '', {
-    dialect: 'mysql',
-    host: 'localhost',
-    port: 3306
-});
-
-module.exports = sequelize;
+module.exports = db;

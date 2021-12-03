@@ -1,42 +1,30 @@
-const Sequelize = require('sequelize');
 const database = require('../db');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const Cliente = database.define('cliente', {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    estabelecimentoId: {
-        type: Sequelize.UUID,
-        references: {
-            model: 'estabelecimentos',
-            key: 'id'
+const Cliente = mongoose.model(
+    "Cliente",
+    new mongoose.Schema({
+        email: String,
+        nome: String,
+        telefone: String,
+        estabelecimento: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Estabelecimento"
         }
-    },
-    email: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    nome: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    telefone: {
-        type: Sequelize.STRING,
-        allowNull: false
-    }
-});
+    })
+);
 
-Cliente.procura = async (cliente) => {
-    const existCliente = await Cliente.findAll({
-        where: {
-            email: cliente.email
-        }
-    });
+// const Cliente = Joi.object({
+//     estabelecimentoId: Joi.string().guid().required(),
+//     email: Joi.string().email().required(),
+//     nome: Joi.string().min(3).max(30).required(),
+//     telefone: Joi.string().length(15).required(),
+// });
 
-    return existCliente.length === 0 ? false : existCliente;
-};
+// Cliente.procura = async (cliente) => {
+//     const existCliente = await Clientes.findOne({email: cliente.email});
+//     return !existCliente ? false : existCliente;
+// };
 
 module.exports = Cliente;

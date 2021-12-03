@@ -1,17 +1,22 @@
-(async () => {
-    const database = require('./db');
+const mongoose = require('mongoose');
+
+main().catch(err => console.log(err));
+
+async function main() {
+    await mongoose.connect('mongodb://localhost:27017/barberNode');
+    const dotenv = require('dotenv');
+    const result = dotenv.config();
     const models = require('./models/models');
     const agendamentoRoutes = require('./routes/agendamento');
     const clienteRoutes = require('./routes/cliente');
     const horarioRoutes = require('./routes/horario');
-    await database.sync();
 
     const express = require('express');
     const session = require('express-session');
     const path = require('path');
     const _PORT = process.env.PORT || 3000;
     const sessionsOptions = {
-        secret: 'thisisatemposecret', 
+        secret: 'thisisatemposecret',
         resave: false,
         saveUninitialized: false
     };
@@ -35,5 +40,4 @@
     app.listen(_PORT, () => {
         console.log(`Serving on port ${_PORT}`);
     })
-
-})();
+}

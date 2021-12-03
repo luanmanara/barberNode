@@ -23,7 +23,7 @@ window.onload = () => {
                 }else {
                     dia = e.target.childNodes[1].id;
                 }
-                location.href = '/agendamentos/' + dia;
+                location.href = '/agendamentos/calendario/' + dia;
             }
         });
     }
